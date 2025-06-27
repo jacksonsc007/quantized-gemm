@@ -1,4 +1,4 @@
-# Introduction
+## Introduction
 
 This repository provides quantized GEMM/GEMV kernels commonly used in large language models with `q4` quantization schemes, along with baseline float32 implementations.
 
@@ -6,28 +6,25 @@ Please note:
 1. The kernel performance has been optimized specifically for my own hardware setup; results may not be reproducible on other systems.
 2. This project is primarily educational and research-oriented—it is **not intended for production use**.
 
-# Roadmap
+## Roadmap
 - [ ] Add support for additional architectures (e.g., ARM NEON, RISC-V).
 - [ ] Further optimize QGEMV kernels for better efficiency and scalability.
 
-# Benchmark Results
+## Benchmark Results
 
 We consider the general matrix multiplication formula:
+
 $$
 O = A \times W
 $$
+
 where $A$ represents the activation matrix, $W$ the weight matrix, and $O$ the resulting output. Unless otherwise specified:
 - Activations are stored in **row-major order**
 - Weights are stored in **column-major order**
 - Output is returned in **row-major order**
 
-## Experimental Setup
+### Experimental Setup
 
-<style>
-table {
-    width: 100%;
-}
-</style>
 | Component         | Specification                     |
 |------------------|-----------------------------------|
 | Operating System  | Ubuntu 22.04                      |
@@ -36,11 +33,11 @@ table {
 
 ---
 
-## GEMM Benchmarks
+### GEMM Benchmarks
 
 **Input Shape:** (1024 × 1024) @ (1024 × 1024)
 
-### Table 1: Single-threaded Performance (`num_threads = 1`)
+- Table 1: Single-threaded Performance (`num_threads = 1`)
 
 | Kernel Type | Backend                 | eGFLOPS |
 | ----------- | ----------------------- | ------- |
@@ -68,7 +65,7 @@ table {
 
 ---
 
-### Table 2: Multi-threaded Performance (`num_threads = 16`)
+- Table 2: Multi-threaded Performance (`num_threads = 16`)
 
 | Kernel Type | Backend                                | eGFLOPS |
 | ----------- | -------------------------------------- | ------- |
@@ -101,11 +98,11 @@ table {
 
 ---
 
-## GEMV Benchmarks
+### GEMV Benchmarks
 
 **Input Shape:** (1 × 10240) @ (10240 × 10240)
 
-### Table 1: Single-threaded Performance (`num_threads = 1`)
+- Table 1: Single-threaded Performance (`num_threads = 1`)
 
 | Kernel Type | Backend                 | eGFLOPS |
 | ----------- | ----------------------- | ------- |
@@ -122,7 +119,7 @@ table {
 | A81W41      | sp-repack-fp16_1        | 96      |
 | A81W41      | sp-repack-fp16_2        | 97      |
 
-### Table 2: Multi-threaded Performance (`num_threads = 16`)
+- Table 2: Multi-threaded Performance (`num_threads = 16`)
 
 | Kernel Type | Backend                                | eGFLOPS |
 | ----------- | -------------------------------------- | ------- |
@@ -143,17 +140,23 @@ table {
 
 ---
 
-## Kernel Specification
+## Build
+```fish
+cd kernels
+bash benchmark.sh <num_threads>
+```
+
+## Specification
 
 | File Name | Description |
 |-----------|-------------|
-| `theoretical_peak_analysis.ipynb` | Provides a detailed and thorough analysis of the theoretical peak performance achievable by each kernel. This part bears even more significance than specific kernel implementation. |
-| `Afp32-Wfp32-BLIS_implementation` | Provides the kernel where both the activation and weight are float32. |
-| `A80-W40-simd_aware_weight_packing` | Provides the A80W40 Quantized kernels with `SIMD-aware weight packing`. |
-| `A81-W41-simd_aware_weight_packing` | Provides the A81W41 Quantized kernels with `SIMD-aware weight packing`. |
-| `A80-W40-simd_aware_weight_packing-repack` | Provides the A80W40 Quantized kernels with `SIMD-aware weight packing` and `repacking`. |
-| `A81-W41-simd_aware_weight_packing-repack` | Provides the A81W41 Quantized kernels with `SIMD-aware weight packing` and `repacking`. |
-| `A8-W4-GGML` | Benchmarks native kernels provided by GGML, offers `FP16` support to custom kernels, and compares their performances. |
+| [theoretical_peak_analysis.ipynb](https://github.com/jacksonsc007/quantized-gemm/blob/main/kernels/theoretical_peak_analysis.ipynb) | Provides a detailed and thorough analysis of the theoretical peak performance achievable by each kernel. This part bears even more significance than specific kernel implementation. |
+| [Afp32-Wfp32-BLIS_implementation](https://github.com/jacksonsc007/quantized-gemm/tree/main/kernels/Afp32-Wfp32-BLIS_implementation) | Provides the kernel where both the activation and weight are float32. |
+| [A80-W40-simd_aware_weight_packing](https://github.com/jacksonsc007/quantized-gemm/tree/main/kernels/A80-W40-simd_aware_weight_packing) | Provides the A80W40 Quantized kernels with `SIMD-aware weight packing`. |
+| [A81-W41-simd_aware_weight_packing](https://github.com/jacksonsc007/quantized-gemm/tree/main/kernels/A81-W41-simd_aware_weight_packing) | Provides the A81W41 Quantized kernels with `SIMD-aware weight packing`. |
+| [A80-W40-simd_aware_weight_packing-repack](https://github.com/jacksonsc007/quantized-gemm/tree/main/kernels/A80-W40-simd_aware_weight_packing-repack) | Provides the A80W40 Quantized kernels with `SIMD-aware weight packing` and `repacking`. |
+| [A81-W41-simd_aware_weight_packing-repack](https://github.com/jacksonsc007/quantized-gemm/tree/main/kernels/A81-W41-simd_aware_weight_packing-repack) | Provides the A81W41 Quantized kernels with `SIMD-aware weight packing` and `repacking`. |
+| [A8-W4-GGML](https://github.com/jacksonsc007/quantized-gemm/tree/main/kernels/A8-W4-GGML) | Benchmarks native kernels provided by GGML, offers `FP16` support to custom kernels, and compares their performances. |
 
 ---
 

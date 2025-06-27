@@ -1,0 +1,2 @@
+timestamp,test_name,M,N,K,MR,NR,MC,NC,KC,threads,implementation,gflops
+2025-04-10T12:16:57.930015,kernel,1,32,32,1,4,1,100,1024,1,kernel,2.349

@@ -1,0 +1,9 @@
+timestamp,test_name,M,N,K,MR,NR,MC,NC,KC,threads,implementation,gflops
+2025-04-11T09:17:36.232249,kernel_blocking,1,4096,4096,1,1,1,1,32,1,kernel,29.265
+2025-04-11T09:17:36.534354,kernel_blocking,1,4096,4096,1,1,1,1,64,1,kernel,48.032
+2025-04-11T09:17:36.838378,kernel_blocking,1,4096,4096,1,1,1,1,128,1,kernel,47.998
+2025-04-11T09:17:37.146874,kernel_blocking,1,4096,4096,1,1,1,1,256,1,kernel,45.641
+2025-04-11T09:17:37.455661,kernel_blocking,1,4096,4096,1,1,1,1,512,1,kernel,55.694
+2025-04-11T09:17:37.759640,kernel_blocking,1,4096,4096,1,1,1,1,1024,1,kernel,53.053
+2025-04-11T09:17:38.066992,kernel_blocking,1,4096,4096,1,1,1,1,2048,1,kernel,50.327
+2025-04-11T09:17:38.372924,kernel_blocking,1,4096,4096,1,1,1,1,4096,1,kernel,41.717
