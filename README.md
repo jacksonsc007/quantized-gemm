@@ -1,4 +1,4 @@
-## Introduction
+## Introduction 📖
 
 This repository provides quantized GEMM/GEMV kernels commonly used in large language models with `q4` quantization schemes, along with baseline float32 implementations.
 
@@ -6,7 +6,7 @@ Please note:
 1. The kernel performance has been optimized specifically for my own hardware setup; results may not be reproducible on other systems.
 2. This project is primarily educational and research-oriented—it is **not intended for production use**.
 
-## Roadmap
+## Roadmap ⛵
 - [ ] Add support for additional architectures (e.g., ARM NEON, RISC-V).
 - [ ] Further optimize QGEMV kernels for better efficiency and scalability.
 
@@ -140,10 +140,16 @@ where $A$ represents the activation matrix, $W$ the weight matrix, and $O$ the r
 
 ---
 
-## Build
+## Build && Run
+To build this project:
 ```fish
 cd kernels
 bash benchmark.sh <num_threads>
+```
+
+To evaluate the kernel performance, execute the executable files under `bin`:
+```fish
+A8-W4-GGML/bin/gemm/gemm-A81W41-ink_repack_scheme-use_fp16-imp2
 ```
 
 ## Specification
@@ -167,7 +173,7 @@ bash benchmark.sh <num_threads>
 
 ---
 
-## Acknowledgments
+## Acknowledgments 🫶
 
 1. [sgemm.c](https://github.com/salykova/sgemm.c) – Hardcore tutorial on optimiation and inspiration for microkernel design and tuning methodology.
 2. [GGML](https://github.com/ggml-org/ggml) – For providing foundational quantization and low-level primitives.
